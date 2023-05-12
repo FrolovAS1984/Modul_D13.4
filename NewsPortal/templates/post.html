@@ -1,0 +1,21 @@
+{% extends 'flatpages/default.html' %}
+{% block title %}
+Posts
+{% endblock title %}
+
+
+{% block content %}
+
+    <table cellspacing="10"  bgcolor="#c0c0c0">
+        <tr>
+            <td>Заголовок</td>
+            <td>Дата публикации</td>
+            <td>Содержание</td>
+        </tr>
+        <tr>
+            <td>{{post.title}}</td>
+            <td>{{post.dateCreation|date:'M d Y'}}</td>
+            <td>{{post.text}}</td>
+        </tr>
+    </table>
+{% endblock content %}

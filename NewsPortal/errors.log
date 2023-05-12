@@ -1,0 +1,32 @@
+2023-05-12 14:38:01,712 [ERROR] - Internal Server Error: /posts/ D:\Проекты\NewsportalFinal\venv\lib\site-packages\django\utils\log.py (<class 'django.template.exceptions.TemplateDoesNotExist'>, TemplateDoesNotExist('posts1.html, news/post_list.html'), <traceback object at 0x000001C6D00B3EC0>)
+Traceback (most recent call last):
+  File "D:\Проекты\NewsportalFinal\venv\lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "D:\Проекты\NewsportalFinal\venv\lib\site-packages\django\core\handlers\base.py", line 220, in _get_response
+    response = response.render()
+  File "D:\Проекты\NewsportalFinal\venv\lib\site-packages\django\template\response.py", line 111, in render
+    self.content = self.rendered_content
+  File "D:\Проекты\NewsportalFinal\venv\lib\site-packages\django\template\response.py", line 87, in rendered_content
+    template = self.resolve_template(self.template_name)
+  File "D:\Проекты\NewsportalFinal\venv\lib\site-packages\django\template\response.py", line 69, in resolve_template
+    return select_template(template, using=self.using)
+  File "D:\Проекты\NewsportalFinal\venv\lib\site-packages\django\template\loader.py", line 47, in select_template
+    raise TemplateDoesNotExist(", ".join(template_name_list), chain=chain)
+django.template.exceptions.TemplateDoesNotExist: posts1.html, news/post_list.html
+2023-05-12 14:38:02,819 [ERROR] - "GET /posts/ HTTP/1.1" 500 90790 D:\Проекты\NewsportalFinal\venv\lib\site-packages\django\core\servers\basehttp.py None
+2023-05-12 14:38:08,840 [ERROR] - Internal Server Error: /posts/ D:\Проекты\NewsportalFinal\venv\lib\site-packages\django\utils\log.py (<class 'django.template.exceptions.TemplateDoesNotExist'>, TemplateDoesNotExist('posts1.html, news/post_list.html'), <traceback object at 0x000001C6D01EF580>)
+Traceback (most recent call last):
+  File "D:\Проекты\NewsportalFinal\venv\lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "D:\Проекты\NewsportalFinal\venv\lib\site-packages\django\core\handlers\base.py", line 220, in _get_response
+    response = response.render()
+  File "D:\Проекты\NewsportalFinal\venv\lib\site-packages\django\template\response.py", line 111, in render
+    self.content = self.rendered_content
+  File "D:\Проекты\NewsportalFinal\venv\lib\site-packages\django\template\response.py", line 87, in rendered_content
+    template = self.resolve_template(self.template_name)
+  File "D:\Проекты\NewsportalFinal\venv\lib\site-packages\django\template\response.py", line 69, in resolve_template
+    return select_template(template, using=self.using)
+  File "D:\Проекты\NewsportalFinal\venv\lib\site-packages\django\template\loader.py", line 47, in select_template
+    raise TemplateDoesNotExist(", ".join(template_name_list), chain=chain)
+django.template.exceptions.TemplateDoesNotExist: posts1.html, news/post_list.html
+2023-05-12 14:38:09,860 [ERROR] - "GET /posts/ HTTP/1.1" 500 90790 D:\Проекты\NewsportalFinal\venv\lib\site-packages\django\core\servers\basehttp.py None

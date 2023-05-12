@@ -1,0 +1,105 @@
+1.  # Создаем пользователей
+
+    u1 = User.objects.create_user(username='Петр Петрович Борода')
+    u2 = User.objects.create_user(username='Сергей Иванович Держиморда')
+
+
+2. # Создаем объекты модели Author, связанные с пользователями.
+
+    Author.objects.create(authorUser=u1)
+    Author.objects.create(authorUser=u2)
+
+
+
+3. # Добавляем категории в модель Category.
+
+    Category.objects.create(name='Technologies')
+    Category.objects.create(name='History')
+    Category.objects.create(name='Science')
+    Category.objects.create(name='Medicine')
+    Category.objects.create(name='Incidents')
+
+
+4.  # Добавляем статьи и новости
+
+    a1 = Author.objects.get(id=1)
+    a2 = Author.objects.get(id=2)
+
+    Post.objects.create(author = a1,categoryType='AR',title = 'Компания Kohler запустила продажи умного царского туалета Numi 2.0',text = 'Американская компания Kohler, занимающаяся производством сантехнических изделий, начала прода
+    жи своего «умного» туалета Numi 2.0. Впервые его представили еще на выставке CES 2019, и только сейчас система добралась до коммерческого производства. Сразу отметим, что стоит это сантехническое чудо космические $11 500 (≈800 тысяч
+    рублей). За что такие деньги? Сейчас расскажем, чем может похвастаться этот царский унитаз.')
+
+    Post.objects.create(author = a2,categoryType='AR',title = 'Если родители просят внуков: как это было в далеком прошлом?',text = 'Любовь человека к кошачьим тянется в искусстве сквозь тысячелетия. От древнего Египта, где кошки были введены в разряд божества, к Средним векам, где коты жили в довольстве при монастырях, спасая припасы от грызунов.')
+
+
+    Post.objects.create(author = a1,categoryType='NW',title ='В соцсетях появилось видео голубой вспышки в небе перед землетрясением в Турции и Сирии',text='На видео видно голубое сияние, после которого начинаются подземные толчки. Уточняется, что его видели жители сирийской Латакии и приграничных районов Турции')
+
+5. # Присваиваем им категории.
+
+   Post.objects.get(id=1).postCategory.add(Category.objects.get(id=1))
+   Post.objects.get(id=1).postCategory.add(Category.objects.get(id=3))
+   Post.objects.get(id=1).postCategory.add(Category.objects.get(id=4))
+   Post.objects.get(id=2).postCategory.add(Category.objects.get(id=2))
+   Post.objects.get(id=3).postCategory.add(Category.objects.get(id=5))
+
+ 6. # Создаем комментарии к разным объектам модели Post
+
+    Comment.objects.create(commentPost=Post.objects.get(id=1),commentUser=Author.objects.get(id=1).authorUser,text='Ничего себе, а у нас до сих пор туалет на улице')
+    Comment.objects.create(commentPost=Post.objects.get(id=1),commentUser=Author.objects.get(id=2).authorUser,text='Даешь в каждый дом по умному туалету!')
+    Comment.objects.create(commentPost=Post.objects.get(id=2),commentUser=Author.objects.get(id=1).authorUser,text='Печальное событие(')
+    Comment.objects.create(commentPost=Post.objects.get(id=3),commentUser=Author.objects.get(id=2).authorUser,text='Очевидно, что кошки намного приятнее людей, вон даже в древнем Египте это понимали)(')
+
+7. # Применяем функции like() и dislike() к статьям/новостям и комментариям.
+
+    Post.objects.get(id=1).Like()
+    Post.objects.get(id=1).Like()
+    Post.objects.get(id=2).Like()
+    Post.objects.get(id=3).Like()
+    Comment.objects.get(id=1).Like()
+    Comment.objects.get(id=2).Like()
+    Comment.objects.get(id=2).Like()
+    Comment.objects.get(id=3).Like()
+    Comment.objects.get(id=4).Like()
+    Comment.objects.get(id=4).Dislike()
+
+ 8. # Обновляем рейтинги пользователей
+
+        a1.update_rating()
+        a2.update_rating()
+
+  9. # Выводим username и рейтинг лучшего пользователя (применяя сортировку и возвращая поля первого объекта)
+
+    bestA = Author.objects.order_by('-ratingAuthor')[:1]
+    for i in bestA:
+        f'Самый лучший автор:{i.authorUser.username}, его рейтинг: {i.ratingAuthor}'
+
+        ИЛИ
+
+    Author.objects.order_by('-ratingAuthor').values('authorUser__username', 'ratingAuthor')[0]
+
+  10. # Выводим дату добавления, username автора, рейтинг, заголовок и превью лучшей статьи, основываясь на лайках/дислайках к этой статье.
+
+    bestPost = Post.objects.order_by('-rating')[:1]
+    for i in bestPost:
+        f'{i.dateCreation}'
+        f'{i.author.authorUser.username}'
+        f'{i.rating}'
+        f'{i.title}'
+        f'{i.Preview()}'
+
+        ИЛИ
+
+    Post.objects.order_by('-rating').values('dateCreation', 'author__authorUser__username', 'rating', 'title')[0]
+    Post.objects.order_by('-rating')[0].Preview()
+
+
+ 11. Выводим все комментарии (дата, пользователь, рейтинг, текст) к этой статье
+
+
+    bestComment = Post.objects.order_by('-rating')[0].comment_set.all()
+    for i in bestComment:
+       f'{i.dateCreation} {i.commentUser.username} {i.rating} {i.text}'
+
+       ИЛИ
+
+    Post.objects.order_by('-rating')[0].comment_set.all().values('dateCreation', 'commentUser__username', 'rating', 'text')
